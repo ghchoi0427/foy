@@ -15,26 +15,29 @@ public class PumpService {
         this.pumpRepository = pumpRepository;
     }
 
-    private String isPumpOn = "N";
+    private int token = 0;
+    private String pumpStatus = "-";
 
-    public void pumpOn() {
-        this.isPumpOn = "Y";
+    public void pumpOn(int token) {
+        this.pumpStatus = "Y";
+        this.token = token;
     }
 
     public void pumpOff() {
-        this.isPumpOn = "N";
+        this.pumpStatus = "N";
+        this.token = 0;
     }
 
-    public String getIsPumpOn() {
+    public int getIsPumpOn() {
         pumpRepository.save(PumpControl.builder()
-                .active(this.isPumpOn)
+                .active(pumpStatus)
                 .time(LocalDateTime.now())
                 .build());
-        return isPumpOn;
+        return token;
     }
 
     public String peekPumpState() {
-        return isPumpOn;
+        return pumpStatus;
     }
 
 }

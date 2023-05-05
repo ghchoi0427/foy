@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
     <title>스마트팜 모니터링</title>
 </head>
 <body>
@@ -13,6 +13,18 @@
         <p>펌프 작동 상태: <span class="chip" th:classappend="${pumpActive == 'Y'} ? 'green' : 'red'"
                            th:text="${pumpActive == 'Y' ? 'On' : 'Off'}"></span></p>
         <form>
+            <select id="tokenInput" name="token">
+                <option value="0">작동시간 입력(×10 단위)</option>
+                <option value="1">10초</option>
+                <option value="2">20초</option>
+                <option value="3">30초</option>
+                <option value="6">1분</option>
+                <option value="12">2분</option>
+                <option value="30">5분</option>
+                <option value="60">10분</option>
+                <option value="180">30분</option>
+                <option value="360">1시간</option>
+            </select>
             <button class="button primary" onclick="sendPumpOn()">작동</button>
             <button class="button" onclick="sendPumpOff()">멈춤</button>
         </form>
@@ -40,12 +52,6 @@
         margin: 16px;
         position: relative;
         width: 100%;
-    }
-
-    @media only screen and (max-width: 600px) {
-        .card-title {
-            font-size: 24px;
-        }
     }
 
     .card-title {
@@ -112,7 +118,14 @@
 </style>
 <script>
     function sendPumpOn() {
-        fetch("/control/pump/on", {method: "POST"});
+        const token = parseInt(document.getElementById("tokenInput").value) / 10;
+        fetch("/control/pump/on", {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                token: token
+            })
+        });
     }
 
     function sendPumpOff() {

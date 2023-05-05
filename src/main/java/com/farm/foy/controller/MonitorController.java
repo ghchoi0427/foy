@@ -28,7 +28,7 @@ public class MonitorController {
             temperature = pumpService.peekPumpState();
         }
         log.info("temperature = " + temperature);
-        model.addAttribute("pumpActive", pumpService.getIsPumpOn());
+        model.addAttribute("pumpActive", pumpService.peekPumpState());
         model.addAttribute("temperature", temperature);
         return "farm-monitor";
     }
