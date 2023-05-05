@@ -19,8 +19,8 @@ public class PumpController {
      * @return activate tokens
      */
     @GetMapping("/pump/state")
-    public int getPumpState() {
-        return pumpService.getIsPumpOn();
+    public String getPumpState() {
+        return String.valueOf(pumpService.getIsPumpOn());
     }
 
     @PostMapping("/pump/on")
