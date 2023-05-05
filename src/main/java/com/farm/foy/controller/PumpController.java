@@ -2,10 +2,12 @@ package com.farm.foy.controller;
 
 import com.farm.foy.entity.TokenRequest;
 import com.farm.foy.service.PumpService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Slf4j
 @RequestMapping("/control")
 public class PumpController {
     private final PumpService pumpService;
@@ -16,10 +18,12 @@ public class PumpController {
 
     /**
      * this method is called by wemos d1 r1 module to retrieve activation timeout from server
+     *
      * @return activate tokens
      */
     @GetMapping("/pump/state")
-    public String getPumpState() {
+    public String getPumpState(@RequestParam(required = false) String temperature, @RequestParam(required = false) String pumpState) {
+        log.info("temp = " + temperature + ", pump = " + pumpState);
         return String.valueOf(pumpService.getIsPumpOn());
     }
 
