@@ -22,7 +22,7 @@ public class PumpController {
      * @return activate tokens
      */
     @GetMapping("/pump/state")
-    public String getPumpState(@RequestParam(required = false) String temperature, @RequestParam(required = false) String pumpState) {
+    public String getPumpState(@RequestParam(required = false) String temperature, @RequestParam(name = "pump", required = false) String pumpState) {
         log.info("temp = " + temperature + ", pump = " + pumpState);
         return String.valueOf(pumpService.getIsPumpOn());
     }
