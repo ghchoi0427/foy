@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>스마트팜 모니터링</title>
+</head>
+<body>
+<div class="card">
+    <div class="card-title">
+        <h2>펌프 제어</h2>
+    </div>
+    <div class="card-body">
+        <p>펌프 작동 상태: <span class="chip" th:classappend="${pumpActive == 'Y'} ? 'green' : 'red'"
+                           th:text="${pumpActive == 'Y' ? 'On' : 'Off'}"></span></p>
+        <form>
+            <button class="button primary" onclick="sendPumpOn()">작동</button>
+            <button class="button" onclick="sendPumpOff()">멈춤</button>
+        </form>
+    </div>
+</div>
+</body>
+<style>
+    /* Material Design-like style */
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: #fafafa;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .card {
+        background-color: #fff;
+        border-radius: 2px;
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.14),
+        0 1px 5px rgba(0, 0, 0, 0.12),
+        0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        display: inline-block;
+        margin: 16px;
+        position: relative;
+        width: 100%;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .card-title {
+            font-size: 24px;
+        }
+    }
+
+    .card-title {
+        background-color: #e0e0e0;
+        color: #212121;
+        padding: 16px;
+    }
+
+    .card-body {
+        padding: 16px;
+    }
+
+    .badge {
+        background-color: #9e9e9e;
+        border-radius: 10px;
+        color: #fff;
+        display: inline-block;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 5px 10px;
+    }
+
+    .chip {
+        border-radius: 10px;
+        display: inline-flex;
+        align-items: center;
+        padding: 5px 10px;
+    }
+
+    .chip .icon {
+        margin-right: 8px;
+    }
+
+    .chip .text {
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .chip.green {
+        background-color: #4caf50;
+        color: #fff;
+    }
+
+    .chip.red {
+        background-color: #f44336;
+        color: #fff;
+    }
+
+    .button {
+        border-radius: 2px;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+        margin: 8px;
+        padding: 8px 16px;
+    }
+
+    .button.primary {
+        background-color: #2196f3;
+        color: #fff;
+    }
+</style>
+<script>
+    function sendPumpOn() {
+        fetch("/control/pump/on", {method: "POST"});
+    }
+
+    function sendPumpOff() {
+        fetch("/control/pump/off", {method: "POST"});
+    }
+</script>
+</html>
