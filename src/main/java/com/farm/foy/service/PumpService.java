@@ -4,6 +4,7 @@ import com.farm.foy.entity.PumpControl;
 import com.farm.foy.repository.PumpControlRepository;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Service
 @Getter
 @Setter
+@Slf4j
 public class PumpService {
 
     private final PumpControlRepository pumpRepository;
@@ -37,6 +39,7 @@ public class PumpService {
                 .active(pumpStatus)
                 .time(LocalDateTime.now())
                 .build());
+        log.info("token = " + token);
         return token;
     }
 
