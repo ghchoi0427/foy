@@ -2,11 +2,15 @@ package com.farm.foy.service;
 
 import com.farm.foy.entity.PumpControl;
 import com.farm.foy.repository.PumpControlRepository;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
 @Service
+@Getter
+@Setter
 public class PumpService {
 
     private final PumpControlRepository pumpRepository;
