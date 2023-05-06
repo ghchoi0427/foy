@@ -25,7 +25,11 @@ public class PumpController {
      */
     @GetMapping("/pump/state")
     public String getPumpState(@RequestParam(required = false) String temperature, @RequestParam(name = "token", required = false) String token, @RequestParam(name = "active") String active) {
+        if (Objects.equals(pumpService.peekPumpState(), "N")) {
+            return "0";
+        }
         log.info("temp = " + temperature + ", token = " + token);
+
         if (Objects.equals(active, "1")) {
             pumpService.setToken(Integer.parseInt(token));
         }
@@ -41,6 +45,7 @@ public class PumpController {
     @PostMapping("/pump/off")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void pumpOff() {
+
         pumpService.pumpOff();
     }
 }

@@ -27,13 +27,13 @@ public class PumpService {
     public void pumpOn(int token) {
         this.pumpStatus = "Y";
         this.token = token;
-        System.out.println("token = " + this.token);
+        log.info("token = " + this.token);
     }
 
     public void pumpOff() {
         this.pumpStatus = "N";
         this.token = 0;
-        System.out.println("token = " + this.token);
+        log.info("token = " + this.token);
     }
 
     public int getIsPumpOn() {
