@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 @RestController
 @Slf4j
 @RequestMapping("/control")
@@ -22,9 +24,11 @@ public class PumpController {
      * @return activate tokens
      */
     @GetMapping("/pump/state")
-    public String getPumpState(@RequestParam(required = false) String temperature, @RequestParam(name = "token", required = false) String token) {
+    public String getPumpState(@RequestParam(required = false) String temperature, @RequestParam(name = "token", required = false) String token, @RequestParam(name = "active") String active) {
         log.info("temp = " + temperature + ", token = " + token);
-        pumpService.setToken(Integer.parseInt(token));
+        if (Objects.equals(active, "1")) {
+            pumpService.setToken(Integer.parseInt(token));
+        }
         return String.valueOf(pumpService.getIsPumpOn());
     }
 

@@ -9,6 +9,7 @@ public class MonitorService {
 
     private final TemperatureRepository tempRepository;
     private final UserLogRepository userLogRepository;
+    private float currentTemp;
 
     public MonitorService(TemperatureRepository tempRepository, UserLogRepository userLogRepository) {
         this.tempRepository = tempRepository;

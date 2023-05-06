@@ -25,7 +25,7 @@ public class MonitorController {
     @GetMapping
     public String monitor(Model model, @RequestParam(name = "temperature", required = false) String temperature) {
         if (temperature == null) {
-            temperature = pumpService.peekPumpState();
+            temperature = pumpService.peekPumpState();//fixme:
         }
         log.info("temperature = " + temperature);
         model.addAttribute("pumpActive", pumpService.peekPumpState());
