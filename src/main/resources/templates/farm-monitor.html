@@ -118,7 +118,7 @@
 </style>
 <script>
     function sendPumpOn() {
-        const token = parseInt(document.getElementById("tokenInput").value) / 10;
+        const token = parseInt(document.getElementById("tokenInput").value);
         fetch("/control/pump/on", {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
