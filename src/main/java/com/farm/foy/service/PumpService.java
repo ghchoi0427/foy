@@ -27,21 +27,22 @@ public class PumpService {
     public void pumpOn(int token) {
         this.pumpStatus = "Y";
         this.token = token;
-        log.info("token = " + this.token);
+        getTokenLog();
     }
 
     public void pumpOff() {
         this.pumpStatus = "N";
         this.token = 0;
-        log.info("token = " + this.token);
+        getTokenLog();
     }
 
     public int getIsPumpOn() {
-        pumpRepository.save(PumpControl.builder()
+        PumpControl pump = PumpControl.builder()
                 .active(pumpStatus)
                 .time(LocalDateTime.now())
-                .build());
-        log.info("token = " + token);
+                .build();
+        pumpRepository.save(pump);
+        getTokenLog();
         return token;
     }
 
@@ -49,4 +50,7 @@ public class PumpService {
         return pumpStatus;
     }
 
+    private void getTokenLog() {
+        log.info("token = " + this.token);
+    }
 }
