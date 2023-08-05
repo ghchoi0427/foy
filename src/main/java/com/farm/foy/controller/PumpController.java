@@ -24,7 +24,7 @@ public class PumpController {
      * @return activate tokens
      */
     @GetMapping("/pump/state")
-    public String getPumpState(@RequestParam(required = false) String temperature, @RequestParam(name = "token", required = false) String token, @RequestParam(name = "active") String active) {
+    public String getPumpState(@RequestParam(required = false) String temperature, @RequestParam(name = "token", required = false) String token, @RequestParam(name = "active", required = false) String active) {
         if (Objects.equals(pumpService.peekPumpState(), "N")) {
             return "0";
         }
